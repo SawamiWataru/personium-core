@@ -29,6 +29,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpStatus;
@@ -45,8 +48,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
-import com.sun.org.apache.xerces.internal.parsers.DOMParser;
 
 import io.personium.common.auth.token.AbstractOAuth2Token;
 import io.personium.common.auth.token.AbstractOAuth2Token.TokenDsigException;
@@ -88,7 +89,6 @@ import io.personium.test.utils.TResponse;
  */
 @RunWith(PersoniumIntegTestRunner.class)
 @Category({Unit.class, Integration.class, Regression.class })
-@SuppressWarnings("restriction")
 public class ImplicitFlowTest extends PersoniumTest {
 
     private static final String MAX_AGE = "maxAge";
@@ -1426,17 +1426,22 @@ public class ImplicitFlowTest extends PersoniumTest {
     }
 
     static void checkHtmlBody(PersoniumResponse res, String messageId, String dataCellName, String dcOwner) {
-        DOMParser parser = new DOMParser();
-        InputSource body = null;
-        body = new InputSource(res.bodyAsStream());
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setNamespaceAware(true);
+        DocumentBuilder builder = null;
         try {
-            parser.parse(body);
-        } catch (SAXException e) {
-            fail(e.getMessage());
-        } catch (IOException e) {
+            builder = dbf.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
             fail(e.getMessage());
         }
-        Document document = parser.getDocument();
+
+        InputSource body = new InputSource(res.bodyAsStream());
+        Document document = null;
+        try {
+            document = builder.parse(body);
+        } catch (SAXException | IOException e) {
+            fail(e.getMessage());
+        }
         NodeList nodeList = document.getElementsByTagName("script");
         assertEquals(AuthResourceUtils.getJavascript("ajax.js"), ((Element) nodeList.item(0)).getTextContent());
 
