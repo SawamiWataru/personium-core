@@ -16,8 +16,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <final.name>personium-core</final.name>
-        <java.source.version>1.8</java.source.version>
-        <java.target.version>1.8</java.target.version>
+        <java.source.version>11</java.source.version>
+        <java.target.version>11</java.target.version>
         <jersey.version>2.27</jersey.version>
         <logback.version>1.2.3</logback.version>
         <slf4j.version>1.7.25</slf4j.version>
@@ -37,17 +37,17 @@
         <dependency>
             <groupId>io.personium</groupId>
             <artifactId>personium-lib-es-adapter</artifactId>
-            <version>1.5.1</version>
+            <version>1.5.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.personium</groupId>
             <artifactId>personium-plugin-base</artifactId>
-            <version>1.0.6</version>
+            <version>1.0.7-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.personium</groupId>
             <artifactId>personium-plugins</artifactId>
-            <version>1.0.5</version>
+            <version>1.0.6-SNAPSHOT</version>
         </dependency>
 
         <dependency>
