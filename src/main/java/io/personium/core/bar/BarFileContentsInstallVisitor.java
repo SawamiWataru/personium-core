@@ -234,6 +234,9 @@ public class BarFileContentsInstallVisitor implements FileVisitor<Path> {
                 // Do not need to process content root directory.
                 return FileVisitResult.CONTINUE;
             }
+            if (!entryName.endsWith("/") && Files.isDirectory(pathInZip)) {
+                entryName = entryName += "/";
+            }
 
             writeOutputStream(false, BarFileUtils.CODE_INSTALL_STARTED, entryName);
 
@@ -416,6 +419,9 @@ public class BarFileContentsInstallVisitor implements FileVisitor<Path> {
         //Register OData Collection
         if (odataCollectionMap.isEmpty()) {
             return;
+        }
+        if (!entryName.endsWith("/") && Files.isDirectory(pathInZip)) {
+            entryName = entryName += "/";
         }
         isValidODataCollectionContents(entryName);
 

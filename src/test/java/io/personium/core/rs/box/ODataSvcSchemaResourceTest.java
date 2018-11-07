@@ -21,6 +21,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -39,6 +40,7 @@ import io.personium.test.categories.Unit;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ ODataSvcCollectionResource.class })
 @Category({ Unit.class })
+@Ignore //TODO If powermock corresponds to OpenJDK-11, restore this.
 public class ODataSvcSchemaResourceTest {
 
     /** Target class of unit test. */

@@ -27,6 +27,7 @@ import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.ProviderNotFoundException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -295,7 +296,7 @@ public class BarFile implements Closeable {
 
         try {
             return FileSystems.newFileSystem(uri, env);
-        } catch (UnsupportedOperationException e) {
+        } catch (UnsupportedOperationException | ProviderNotFoundException e) {
             // UnsupportedOperationException occurs if body at the time of box install api invocation is empty.
             throw PersoniumCoreException.BarInstall.BAR_FILE_CANNOT_OPEN.params("archive is not a ZIP archive");
         }

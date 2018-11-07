@@ -194,8 +194,7 @@ public class UpdateTest extends AbstractCase {
         NodeList nodeListPrivilege = tresponse.bodyAsXml().getElementsByTagName("privilege").item(0).getChildNodes();
         boolean existsPrivilegeAll = false;
         for (int i = 0; i < nodeListPrivilege.getLength(); i++) {
-            String nodename = nodeListPrivilege.item(i).getNodeName();
-            // all -> root への対応が必要
+            String nodename = nodeListPrivilege.item(i).getLocalName();
             if ("root".equals(nodename)) {
                 existsPrivilegeAll = true;
             }
@@ -249,8 +248,7 @@ public class UpdateTest extends AbstractCase {
         nodeListPrivilege = tresponsePut.bodyAsXml().getElementsByTagName("privilege").item(0).getChildNodes();
         existsPrivilegeAll = false;
         for (int i = 0; i < nodeListPrivilege.getLength(); i++) {
-            String nodename = nodeListPrivilege.item(i).getNodeName();
-            // all -> root への対応が必要
+            String nodename = nodeListPrivilege.item(i).getLocalName();
             if ("root".equals(nodename)) {
                 existsPrivilegeAll = true;
             }

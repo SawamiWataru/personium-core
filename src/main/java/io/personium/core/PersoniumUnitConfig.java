@@ -21,6 +21,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Properties;
@@ -468,6 +469,13 @@ public class PersoniumUnitConfig {
         for (String val : values) {
             // Correspondence when "localunit" is set for issuers.
             String convertedValue = UriUtils.convertSchemeFromLocalUnitToHttp(unitUrl, val);
+            if (!PersoniumUnitConfig.isPathBasedCellUrlEnabled()) {
+                try {
+                    convertedValue = UriUtils.convertPathBaseToFqdnBase(convertedValue);
+                } catch (URISyntaxException e) {
+                    return false;
+                }
+            }
             if (testValue.equals(convertedValue)) {
                 return true;
             }
